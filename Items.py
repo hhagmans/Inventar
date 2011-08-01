@@ -1,5 +1,5 @@
 class Schwert():
-    
+    """ Erstellt ein Item vom Typ Schwert"""
     def __init__(self):
         self.ID = 0
         self.name = "Schwert"
@@ -7,26 +7,19 @@ class Schwert():
         zeile2 = [1]
         self.spalte = [zeile1,zeile2]
         self.stapelbar = False
-        self.nachricht = "%s" %self.name
         
-    def __str__(self):
-        return self.name
         
 class Dolch():
-    
+    """ Erstellt ein Item vom Typ Dolch"""    
     def __init__(self):
         self.ID = 0
         self.name = "Dolch"
         zeile1 = [1]
         self.spalte = [zeile1]
         self.stapelbar = False
-        self.nachricht = "%s" %self.name
-    
-    def __str__(self):
-        return self.name
     
 class Axt():
-    
+    """ Erstellt ein Item vom Typ Axt"""    
     def __init__(self):
         self.ID = 0
         self.name = "Axt"
@@ -35,13 +28,9 @@ class Axt():
         zeile3 = [0,1]
         self.spalte = [zeile1,zeile2,zeile3]
         self.stapelbar = False
-        self.nachricht = "%s" %self.name
-    
-    def __str__(self):
-        return self.name
     
 class Ruestung():
-    
+    """ Erstellt ein Item vom Typ Ruestung"""    
     def __init__(self):
         self.ID = 0
         self.name = "Ruestung"
@@ -49,13 +38,10 @@ class Ruestung():
         zeile2 = [0,1]
         self.spalte = [zeile1,zeile2]
         self.stapelbar = False
-        self.nachricht = "%s" %self.name
-    
-    def __str__(self):
-        return self.name
+
             
 class Hose():
-    
+    """ Erstellt ein Item vom Typ Hose"""    
     def __init__(self):
         self.ID = 0
         self.name = "Hose"
@@ -63,26 +49,18 @@ class Hose():
         zeile2 = [1]
         self.spalte = [zeile1,zeile2]
         self.stapelbar = False
-        self.nachricht = "%s" %self.name
-    
-    def __str__(self):
-        return self.name
             
 class Handschuhe():
-    
+    """ Erstellt ein Item vom Typ Handschuhe"""    
     def __init__(self):
         self.ID = 0
         self.name = "Handschuhe"
         zeile1 = [1]
         self.spalte = [zeile1]
         self.stapelbar = False
-        self.nachricht = "%s" %self.name
-    
-    def __str__(self):
-        return self.name
             
 class Heiltrank():
-    
+    """ Erstellt ein Item vom Typ Heiltrank"""    
     def __init__(self):
         self.ID = 0
         self.name = "Heiltrank"
@@ -91,13 +69,9 @@ class Heiltrank():
         self.stapelbar = True
         self.anzahl = 1
         self.maxanzahl = 20
-        self.nachricht = "%s" %self.name
-    
-    def __str__(self):
-        return self.name
             
 class Manatrank():
-    
+    """ Erstellt ein Item vom Typ Manatrank"""    
     def __init__(self):
         self.ID = 0
         self.name = "Manatrank"
@@ -106,13 +80,9 @@ class Manatrank():
         self.stapelbar = True
         self.anzahl = 1
         self.maxanzahl = 20
-        self.nachricht = "%s" %self.name
-    
-    def __str__(self):
-        return self.name
             
 class Schriftrolle():
-    
+    """ Erstellt ein Item vom Typ Schriftrolle"""    
     def __init__(self):
         self.ID = 0
         self.name = "Schriftrolle"
@@ -121,7 +91,3 @@ class Schriftrolle():
         self.stapelbar = True
         self.anzahl = 1
         self.maxanzahl = 20
-        self.nachricht = "%s" %self.name
-            
-    def __str__(self):
-        return self.name

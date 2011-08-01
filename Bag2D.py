@@ -6,23 +6,28 @@ aktID = 0
 
 class Tasche ():
     
-    def __init__(self,g1,g2,g3,g4):                                     # gx = Anzahl Zeilen von Beutel x
+    def __init__(self,g1,g2,g3,g4):  
+        """Initialisiert die 4 Beutel mit gx = Anzahl Zeilen von Beutel x"""
         self.inhalt = [Beutel(g1),Beutel(g2), Beutel(g3), Beutel(g4)]
      
     def getItem(self,Nr,pos):
+        """ Gibt item aus Beutel Nr an pos zurueck"""
         return self.inhalt[Nr].getItem(pos)
     
-    def einfuegen(self,item):                               # Einfuegen des Items an erste freie Stelle
+    def einfuegen(self,item): 
+        """Einfuegen des Items an erste freie Stelle"""
         ver = False
         it = copy.copy (item)
         Nr = self.platzFinden(it)
         pos = self.inhalt[Nr].platzFinden(it,self.inhalt[Nr-1]) 
         self.inhalt[Nr-1].einfuegen(it,pos,ver)
         
-    def entfernen(self,Nr,pos):                             # Entfernen des Items an Position pos in Beutel Nr
+    def entfernen(self,Nr,pos):      
+        """Entfernen des Items an Position pos in Beutel Nr"""
         self.inhalt[Nr].entfernen(pos)
         
-    def verschieben(self,altNr,neuNr,altpos,neupos,item):        # Verschieben des Items von altpos in Beutel altNr nach neupos in Beutel neuNr
+    def verschieben(self,altNr,neuNr,altpos,neupos,item):        
+        """Verschieben des Items von altpos in Beutel altNr nach neupos in Beutel neuNr"""
         ver = True
         item = self.inhalt[altNr-1].getItem(altpos)
         if item.stapelbar == True:
@@ -35,7 +40,8 @@ class Tasche ():
         else:
             self.inhalt[altNr-1].einfuegen(item,altpos,ver)
     
-    def platzFinden(self,item):                             # Gibt ersten Beutel mit genug Platz zurueck
+    def platzFinden(self,item):                             
+        """Gibt ersten Beutel mit genug Platz zurueck"""
         pos = None
         i = 0
         if item.stapelbar == True:
@@ -54,8 +60,9 @@ class Tasche ():
                 i += 1
         return i
                 
-    def anzeigen(self,Nr):                                      # gibt Liste mit gerenderten Fonts der Items
-        erg = []                                                # im Beutel zeilenweise zurueck
+    def anzeigen(self,Nr):      
+        """gibt Liste mit gerenderten Fonts der Items im Beutel zeilenweise zurueck"""
+        erg = []                                                
         font = pygame.font.Font(None,schriftgroesse)
         Text1 = "Beutel Nr: %i" %Nr  
         fontBeutel = pygame.font.Font(None,25)
@@ -88,12 +95,14 @@ class Beutel ():
             zeile = [0,0,0,0,0,0,0,0,0]
             self.spalte.append(zeile)
     
-    def getItem(self,pos):                              # gibt Item an pos aus
+    def getItem(self,pos):                              
+        """gibt Item an pos aus"""
         erg = self.spalte [pos[0]][pos[1]]
         if erg <> 0:
             return erg
      
-    def enthalten(self,Beutel,item):                                # gibt Index des uebergebenen items in Beutel Nr zurueck
+    def enthalten(self,Beutel,item):                                
+        """gibt Index des uebergebenen items in Beutel Nr zurueck"""
         i = 0
         for zeile in Beutel.spalte:
             for it in zeile:
@@ -102,12 +111,14 @@ class Beutel ():
             i += 1
      
     def einf(self,item,pos):
+        """vergibt vor dem Einfuegen eine neue ID"""
         global aktID
         item.ID = aktID
         self.einfv(item,pos)
         aktID += 1
         
     def einfv(self,item,pos):
+        """ Fuegt uebergebenes Item in pos ein"""
         i = pos[0]
         i2 = pos[1]
         for it in item.spalte:
@@ -118,7 +129,8 @@ class Beutel ():
             i += 1
             i2 = pos[1]
           
-    def einfuegen(self,item,pos,ver):                       # fuegt uebergebenes Item in pos ein
+    def einfuegen(self,item,pos,ver):                       
+        """Prueft aus Stapelbarkeit und ruft dann bei Einfuegen einf aus, bei verschieben einfv"""
         if item.stapelbar == True:
             if self.enthalten(self,item) <> None:
                 pos = self.enthalten(self,item)
@@ -135,7 +147,8 @@ class Beutel ():
             else:
                 self.einf(item,pos)
                 
-    def entfernen(self,pos):                            # entfernt Item an pos
+    def entfernen(self,pos):                            
+        """entfernt Item an pos"""
         item = self.getItem(pos)
         if item.stapelbar == True:
             self.spalte [pos[0]][pos[1]].anzahl -= 1
@@ -153,7 +166,8 @@ class Beutel ():
                 i += 1
                 i2 = 0
     
-    def itemProbe(self,pos,item,Beutel):                       # ueberprueft, ob das Item an pos passt
+    def itemProbe(self,pos,item,Beutel):                       
+        """ueberprueft, ob das Item an pos passt"""
         i = pos[0]
         i2 = pos[1]
         erg = True
@@ -176,7 +190,8 @@ class Beutel ():
                 i2 = pos[1]
         return erg
         
-    def platzFinden(self,item,Beutel):                          # findet ersten freien Index, in den das Item passt
+    def platzFinden(self,item,Beutel):                          
+        """findet ersten freien Index, in den das Item passt"""
         i = 0
         i2 = 0
         gefunden = False

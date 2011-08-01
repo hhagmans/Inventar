@@ -1,8 +1,9 @@
 import pygame, sys, random, Bag2D, Items, copy
 from pygame.locals import *
 
-class Rechteck(pygame.sprite.Sprite):           # erstellt ein Rechteck uebergebener Groesse und Farbe
-                                                # an uebergebenem Ort
+class Rechteck(pygame.sprite.Sprite):            
+    """erstellt ein Rechteck uebergebener Groesse und Farbe an uebergebenem Ort"""
+                                               
     def __init__(self,ort,groesse,farbe):
         pygame.sprite.Sprite.__init__(self)
         image_surface = pygame.surface.Surface(groesse)
@@ -16,8 +17,10 @@ class Rechteck(pygame.sprite.Sprite):           # erstellt ein Rechteck uebergeb
         self.rect.centerx = self.ort[0] - terrainPos   
         
 def create_map(beginn,ende):
-    items = pygame.sprite.Group()     # erstellt Map mit bis zu 3 Items
-    orte = []                         # von Spalte beginn bis Spalte ende
+    """erstellt Map mit bis zu 3 Items von Spalte beginn bis Spalte ende"""    
+    
+    items = pygame.sprite.Group() 
+    orte = []                          
     for i in range(3):                 
         spalte = random.randint(beginn,ende)
         ort  = [spalte * 128 + 20, 570] 
@@ -28,7 +31,8 @@ def create_map(beginn,ende):
     return items
 
 def updateItems(map0, map1):
-    items = pygame.sprite.Group()     # erstellt aus den 2 Maps die aktuelle Map
+    """erstellt aus 2 Maps die aktuelle Map"""
+    items = pygame.sprite.Group()      
     for it in map0:
         items.add(it)
     for it in map1:
@@ -36,7 +40,8 @@ def updateItems(map0, map1):
     return items
 
 def animate():
-    screen.fill([255, 255, 255])               # loescht den alten Bildschirm und zeichnet alles neu
+    """loescht den alten Bildschirm und zeichnet alles neu"""
+    screen.fill([255, 255, 255])               
     pygame.display.update(items.draw(screen)) 
     screen.blit(spieler.image, spieler.rect)
     if inventarOn == True: 
@@ -44,7 +49,8 @@ def animate():
     pygame.display.flip()
 
 def iAnzeigen():
-    texte = Tasche.anzeigen(inventarNr)  # Inventar anzeigen
+    """Inventar anzeigen"""
+    texte = Tasche.anzeigen(inventarNr)
     abstandh = 100
     abstandv = 25
     textpos = [0,25]
@@ -73,7 +79,8 @@ def iAnzeigen():
         linienposh[1] += abstandv
     
 def getPos(pos):
-    if pos [1] >25:                # ermittelt das Item mittels uebergebener Mausposition
+    """ermittelt das Item mittels uebergebener Mausposition"""
+    if pos [1] >25:                 
         x = (pos[0] - 100) / 100
         y = (pos[1] - 17) / 25
     try:
@@ -86,9 +93,10 @@ def getPos(pos):
         
     
 def getPosV(neupos):
+    """ermittelt das Item mittels uebergebener Mausposition fuer verschieben"""
     global pos
     altpos = copy.copy (pos)
-    if neupos [1] >25:                # ermittelt das Item mittels uebergebener Mausposition fuer verschieben
+    if neupos [1] >25: 
         x = (neupos[0] - 100) / 100
         y = (neupos[1] - 17) / 25
     if altpos [1] >25:
@@ -99,15 +107,18 @@ def getPosV(neupos):
     except:
         print "Item bereits auf Slot"
 
-def loeschen(pos):                             # loescht uebergebenes Item aus aktuellem Beutel
+def loeschen(pos):  
+    """loescht uebergebenes Item aus aktuellem Beutel"""                           
     Tasche.entfernen(inventarNr-1,pos)
     
-def verschieben(altpos,neupos):                          # verschiebt uebergebenes Item von altem Beutel in aktuellen Beutel
+def verschieben(altpos,neupos):  
+    """verschiebt uebergebenes Item von altem Beutel in aktuellen Beutel"""
     item = Tasche.getItem(altInventarNr-1,altpos)
     Tasche.verschieben(altInventarNr,inventarNr,altpos,neupos,item)
 
 def inventarTest(Nr):
-    global inventarNr, click        # Test bei Inventarwechsel
+    """Test bei Inventarwechsel"""
+    global inventarNr, click        
     if inventarOn == True:          
         inventarNr = Nr
         if inventarNr <> altInventarNr:
