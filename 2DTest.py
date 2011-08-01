@@ -114,7 +114,10 @@ def loeschen(pos):
 def verschieben(altpos,neupos):  
     """verschiebt uebergebenes Item von altem Beutel in aktuellen Beutel"""
     item = Tasche.getItem(altInventarNr-1,altpos)
-    Tasche.verschieben(altInventarNr,inventarNr,altpos,neupos,item)
+    if item.stapelbar == True:
+        Tasche.verschiebenS(altInventarNr,inventarNr,altpos,neupos)
+    else:
+        Tasche.verschieben(altInventarNr,inventarNr,altpos,neupos)
 
 def inventarTest(Nr):
     """Test bei Inventarwechsel"""
@@ -190,14 +193,14 @@ while True:
                         print "Kein Item ausgewaehlt"
             elif event.key == pygame.K_v:           # gewaehltes Item in akt. Beutel verschieben
                 if inventarOn == True:
-                    try:
+                    #try:
                         mousepos = pygame.mouse.get_pos()
                         neupos = getPosV(mousepos)
                         verschieben(pos,neupos)
                         pos = None
                         neupos = None
-                    except:
-                        print "Kein Item ausgewaehlt"
+                    #except:
+                     #   print "Kein Item ausgewaehlt"
         if event.type == pygame.MOUSEBUTTONDOWN:
             if inventarOn == True:                 
                 click = True                        # bei Mausklick Item waehlen

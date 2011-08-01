@@ -2,7 +2,6 @@ import pygame, sys, random, copy
 from pygame.locals import * 
 
 schriftgroesse = 15
-aktID = 0
 
 class Tasche ():
     
@@ -16,29 +15,34 @@ class Tasche ():
     
     def einfuegen(self,item): 
         """Einfuegen des Items an erste freie Stelle"""
-        ver = False
+        vs = False
         it = copy.copy (item)
         Nr = self.platzFinden(it)
         pos = self.inhalt[Nr].platzFinden(it,self.inhalt[Nr-1]) 
-        self.inhalt[Nr-1].einfuegen(it,pos,ver)
+        self.inhalt[Nr-1].einfuegen(it,pos,vs)
         
     def entfernen(self,Nr,pos):      
         """Entfernen des Items an Position pos in Beutel Nr"""
         self.inhalt[Nr].entfernen(pos)
         
-    def verschieben(self,altNr,neuNr,altpos,neupos,item):        
+    def verschieben(self,altNr,neuNr,altpos,neupos):        
         """Verschieben des Items von altpos in Beutel altNr nach neupos in Beutel neuNr"""
-        ver = True
+        vs = False
         item = self.inhalt[altNr-1].getItem(altpos)
-        if item.stapelbar == True:
-            newItem = copy.copy(item)
-            newItem.anzahl = 1
-            item = newItem
         self.inhalt[altNr-1].entfernen(altpos)
         if self.inhalt[neuNr-1].itemProbe(neupos,item,self.inhalt[neuNr-1]) == True:
-            self.inhalt[neuNr-1].einfuegen(item,neupos,ver)
+            self.inhalt[neuNr-1].einfuegen(item,neupos,vs)
         else:
-            self.inhalt[altNr-1].einfuegen(item,altpos,ver)
+            self.inhalt[altNr-1].einfuegen(item,altpos,vs)
+            
+    def verschiebenS(self,altNr,neuNr,altpos,neupos):
+        vs = True
+        item = self.inhalt[altNr-1].getItem(altpos)
+        self.inhalt[altNr-1].spalte [altpos[0]][altpos[1]] = 0
+        if self.inhalt[neuNr-1].itemProbe(neupos,item,self.inhalt[neuNr-1]) == True:
+            self.inhalt[neuNr-1].einfuegen(item,neupos,vs)
+        else:
+            self.inhalt[altNr-1].einfuegen(item,altpos,vs)
     
     def platzFinden(self,item):                             
         """Gibt ersten Beutel mit genug Platz zurueck"""
@@ -122,14 +126,15 @@ class Beutel ():
             i += 1
             i2 = pos[1]
           
-    def einfuegen(self,item,pos,ver):                       
+    def einfuegen(self,item,pos,vs):                       
         """Prueft aus Stapelbarkeit und ruft dann bei Einfuegen einf aus, bei verschieben einfv"""
         if item.stapelbar == True:
             if self.enthalten(self,item) <> None:
                 pos = self.enthalten(self,item)
                 self.spalte [pos[0]][pos[1]].anzahl += 1
             else:
-                item.anzahl = 1
+                if vs == False:
+                    item.anzahl = 1
                 self.einf(item,pos)
         else:
             self.einf(item,pos)
@@ -195,4 +200,3 @@ class Beutel ():
                         i2 = 0
         if gefunden == True:
             return [i,i2]
-    
