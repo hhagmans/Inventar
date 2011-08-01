@@ -144,6 +144,7 @@ itemMenu = Rechteck([0,0],itemMenuGroesse,itemMenuFarbe)
 click = False
 map_position = 0
 mousepos = [0,0]
+aktID = 0
 pos = None
 neupos = None
 startmap = create_map(0, 4)
@@ -229,6 +230,8 @@ while True:
         items.remove(it)                   # Kollisionserkennung
         if pygame.sprite.spritecollide(it,spielergruppe,False):
             s = itemListe[random.randint(0,8)]
+            s. ID = aktID
+            aktID += 1
             Tasche.einfuegen(s)
         else:
             items.add(it)

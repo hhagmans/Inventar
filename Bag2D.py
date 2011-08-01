@@ -61,7 +61,7 @@ class Tasche ():
         return i
                 
     def anzeigen(self,Nr):      
-        """gibt Liste mit gerenderten Fonts der Items im Beutel zeilenweise zurueck"""
+        """gibt Liste mit gerenderten Grafiken der Items im Beutel zeilenweise zurueck"""
         erg = []                                                
         font = pygame.font.Font(None,schriftgroesse)
         Text1 = "Beutel Nr: %i" %Nr  
@@ -109,15 +109,8 @@ class Beutel ():
                 if it <> 0 and item.name == it.name:
                     return [i,Beutel.spalte[i].index(it)]
             i += 1
-     
-    def einf(self,item,pos):
-        """vergibt vor dem Einfuegen eine neue ID"""
-        global aktID
-        item.ID = aktID
-        self.einfv(item,pos)
-        aktID += 1
         
-    def einfv(self,item,pos):
+    def einf(self,item,pos):
         """ Fuegt uebergebenes Item in pos ein"""
         i = pos[0]
         i2 = pos[1]
@@ -137,15 +130,9 @@ class Beutel ():
                 self.spalte [pos[0]][pos[1]].anzahl += 1
             else:
                 item.anzahl = 1
-                if ver == True:
-                    self.einfv(item,pos)
-                else:
-                    self.einf(item,pos)
-        else:
-            if ver == True:
-                self.einfv(item,pos)
-            else:
                 self.einf(item,pos)
+        else:
+            self.einf(item,pos)
                 
     def entfernen(self,pos):                            
         """entfernt Item an pos"""
