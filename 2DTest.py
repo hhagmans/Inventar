@@ -118,9 +118,11 @@ def createItemU(pos):
     for zeile in Tasche.inhalt[inventarNr-1].spalte:
         for it in zeile:
             if it <> 0 and item.ID == it.ID:
-                liste.append([i,Tasche.inhalt[inventarNr-1].spalte[i].index(it)])
+                if [i,Tasche.inhalt[inventarNr-1].spalte[i].index(it)] in liste:
+                    liste.append([i,(Tasche.inhalt[inventarNr-1].spalte[i].index(it))+1])
+                else:
+                    liste.append([i,Tasche.inhalt[inventarNr-1].spalte[i].index(it)])
         i += 1
-    print liste
     for it in liste:
         pos = [((it[1] +1) * 100)-5,((it[0] + 1) * 25)-7]
         erg.append(pos)
@@ -257,7 +259,7 @@ while True:
     for it in items:
         items.remove(it)                   # Kollisionserkennung
         if pygame.sprite.spritecollide(it,spielergruppe,False):
-            s = random.choice(itemListe) 
+            s = random.choice(itemListe)
             s.ID = aktID
             aktID +=1 
             it = copy.copy (s)
