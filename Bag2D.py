@@ -16,10 +16,12 @@ class Tasche ():
     def einfuegen(self,item): 
         """Einfuegen des Items an erste freie Stelle"""
         vs = False
-        it = copy.copy (item)
-        Nr = self.platzFinden(it)
-        pos = self.inhalt[Nr].platzFinden(it,self.inhalt[Nr-1]) 
-        self.inhalt[Nr-1].einfuegen(it,pos,vs)
+        try:
+            Nr = self.platzFinden(item)
+            pos = self.inhalt[Nr].platzFinden(item,self.inhalt[Nr-1]) 
+            self.inhalt[Nr-1].einfuegen(item,pos,vs)
+        except:
+            print "Tasche voll"
         
     def entfernen(self,Nr,pos):      
         """Entfernen des Items an Position pos in Beutel Nr"""

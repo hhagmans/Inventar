@@ -193,14 +193,14 @@ while True:
                         print "Kein Item ausgewaehlt"
             elif event.key == pygame.K_v:           # gewaehltes Item in akt. Beutel verschieben
                 if inventarOn == True:
-                    #try:
+                    try:
                         mousepos = pygame.mouse.get_pos()
                         neupos = getPosV(mousepos)
                         verschieben(pos,neupos)
                         pos = None
                         neupos = None
-                    #except:
-                     #   print "Kein Item ausgewaehlt"
+                    except:
+                        print "Kein Item ausgewaehlt"
         if event.type == pygame.MOUSEBUTTONDOWN:
             if inventarOn == True:                 
                 click = True                        # bei Mausklick Item waehlen
@@ -232,10 +232,11 @@ while True:
     for it in items:
         items.remove(it)                   # Kollisionserkennung
         if pygame.sprite.spritecollide(it,spielergruppe,False):
-            s = itemListe[random.randint(0,8)]
-            s. ID = aktID
-            aktID += 1
-            Tasche.einfuegen(s)
+            s = random.choice(itemListe) 
+            s.ID = aktID
+            aktID +=1 
+            it = copy.copy (s)
+            Tasche.einfuegen(it)
         else:
             items.add(it)
     animate() # zeichnen
