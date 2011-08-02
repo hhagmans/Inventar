@@ -58,7 +58,8 @@ def iAnzeigen():
     linienposv = [100,17]
     screen.blit(itemMenu.image, itemMenu.rect)
     if click == True and pos <> None and mousepos[1] <= 25 + 25 * taschengroesse:
-        screen.blit(itemU.image, itemU.rect)
+        for itU in itemUListe:
+            screen.blit(itU.image, itU.rect)
     screen.blit (texte [0][0],[0,0])
     del texte [0][0]
     pygame.draw.line(screen, (0, 0, 0), linienposh, (640,linienposh[1]))
@@ -107,6 +108,24 @@ def getPosV(neupos):
     except:
         print "Item bereits auf Slot"
 
+def createItemU(pos):
+    """ Erstellt eine Liste mit Positiionen der Itemuntergruende anhand der geklickten Position"""
+    item = Tasche.inhalt[inventarNr-1].spalte[pos[0]][pos[1]]
+    i = 0
+    i2 = 0
+    liste = []
+    erg = []
+    for zeile in Tasche.inhalt[inventarNr-1].spalte:
+        for it in zeile:
+            if it <> 0 and item.ID == it.ID:
+                liste.append([i,Tasche.inhalt[inventarNr-1].spalte[i].index(it)])
+        i += 1
+    print liste
+    for it in liste:
+        pos = [((it[1] +1) * 100)-5,((it[0] + 1) * 25)-7]
+        erg.append(pos)
+    return erg
+
 def loeschen(pos):  
     """loescht uebergebenes Item aus aktuellem Beutel"""                           
     Tasche.entfernen(inventarNr-1,pos)
@@ -145,6 +164,7 @@ itemMenuFarbe = [255,220,220]
 itemMenuGroesse = [640,(25 + 25 * taschengroesse)-7]
 itemMenu = Rechteck([0,0],itemMenuGroesse,itemMenuFarbe)
 click = False
+itemUListe = []
 map_position = 0
 mousepos = [0,0]
 aktID = 0
@@ -205,10 +225,15 @@ while True:
             if inventarOn == True:                 
                 click = True                        # bei Mausklick Item waehlen
                 mousepos = pygame.mouse.get_pos()
-                upos = [((mousepos[0] / 100) * 100)-5,((mousepos[1]/ 25) *25)-7]
+                uListe = []
+                itemUListe = []
                 if mousepos[1] > 17 and mousepos[0] >= 25 + 25 * taschengroesse:
-                    itemU = Rechteck(upos,itemUGroesse,itemUFarbe)
                     pos = getPos(mousepos)
+                    if pos <> None:
+                        uListe = createItemU(pos)
+                    for it in uListe:
+                        itemU = Rechteck(it,itemUGroesse,itemUFarbe)
+                        itemUListe.append(itemU)
                 else:
                     pos = None
                 altInventarNr = inventarNr
