@@ -1,10 +1,11 @@
-import pygame, sys, random, copy
+import pygame, sys, random
 from pygame.locals import * 
 
 schriftgroesse = 15
 
 class Tasche ():
-    
+    """Erstellt Objekt mit einer Liste, die 4 Objekte vom Typ Beutel enthaelt"""  
+      
     def __init__(self,g1,g2,g3,g4):  
         """Initialisiert die 4 Beutel mit gx = Anzahl Zeilen von Beutel x"""
         self.inhalt = [Beutel(g1),Beutel(g2), Beutel(g3), Beutel(g4)]
@@ -93,6 +94,7 @@ class Tasche ():
         return erg
        
 class Beutel ():
+    """Erstellt Objekt mit einer Liste, die die Anzahl Zeilen, die uebergeben werden, als weitere Listen enthaelt"""
     
     def __init__(self,anzahl):
         self.anzahl = anzahl

@@ -1,4 +1,4 @@
-import pygame, sys, random, Bag2D, Items, copy
+import pygame, sys, random, Bag2D, Items
 from pygame.locals import *
 
 class Rechteck(pygame.sprite.Sprite):            
@@ -109,7 +109,7 @@ def getPosV(neupos):
         print "Item bereits auf Slot"
 
 def createItemU(pos):
-    """ Erstellt eine Liste mit Positiionen der Itemuntergruende anhand der geklickten Position"""
+    """ Erstellt eine Liste mit Positionen der Itemuntergruende anhand der geklickten Position"""
     item = Tasche.inhalt[inventarNr-1].spalte[pos[0]][pos[1]]
     i = 0
     i2 = 0
@@ -259,11 +259,13 @@ while True:
     for it in items:
         items.remove(it)                   # Kollisionserkennung
         if pygame.sprite.spritecollide(it,spielergruppe,False):
-            s = random.choice(itemListe)
-            s.ID = aktID
-            aktID +=1 
-            it = copy.copy (s)
-            Tasche.einfuegen(it)
+                ite = random.choice(itemListe)
+                ite.ID = aktID
+                aktID +=1 
+                Tasche.einfuegen(ite)
+                itemListe = ([Items.Schwert(),Items.Dolch(),Items.Axt(),
+                Items.Ruestung(),Items.Hose(),Items.Handschuhe(),Items.Heiltrank(),
+                Items.Manatrank(),Items.Schriftrolle()])
         else:
             items.add(it)
     animate() # zeichnen
