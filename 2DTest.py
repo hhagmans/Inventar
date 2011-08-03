@@ -18,7 +18,6 @@ class Rechteck(pygame.sprite.Sprite):
         
 def create_map(beginn,ende):
     """erstellt Map mit bis zu 3 Items von Spalte beginn bis Spalte ende"""    
-    
     items = pygame.sprite.Group() 
     orte = []                          
     for i in range(3):                 
@@ -259,13 +258,13 @@ while True:
     for it in items:
         items.remove(it)                   # Kollisionserkennung
         if pygame.sprite.spritecollide(it,spielergruppe,False):
-                ite = random.choice(itemListe)
-                ite.ID = aktID
-                aktID +=1 
-                Tasche.einfuegen(ite)
-                itemListe = ([Items.Schwert(),Items.Dolch(),Items.Axt(),
-                Items.Ruestung(),Items.Hose(),Items.Handschuhe(),Items.Heiltrank(),
-                Items.Manatrank(),Items.Schriftrolle()])
+            ite = random.choice(itemListe)
+            ite.ID = aktID
+            aktID +=1 
+            Tasche.einfuegen(ite)
+            itemListe = ([Items.Schwert(),Items.Dolch(),Items.Axt(),
+            Items.Ruestung(),Items.Hose(),Items.Handschuhe(),Items.Heiltrank(),
+            Items.Manatrank(),Items.Schriftrolle()])
         else:
             items.add(it)
     animate() # zeichnen

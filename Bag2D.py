@@ -81,9 +81,9 @@ class Tasche ():
                 item = zeile [i]
                 if item <> 0:
                     if item.stapelbar:
-                        Text = "%s x%i" %(item.name,item.anzahl)
+                        Text = "ID%i %s x%i" %(item.ID,item.name,item.anzahl)
                     else:
-                        Text = "%s" %(item.name)
+                        Text = "ID%i %s" %(item.ID,item.name)
                     t2_surf = font.render(Text, 1, (0,0,0))  
                     liste.append(t2_surf)
                 else:
