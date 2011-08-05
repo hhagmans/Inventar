@@ -39,6 +39,7 @@ class Tasche ():
             self.inhalt[altNr-1].einfuegen(item,altpos,vs)
             
     def verschiebenS(self,altNr,neuNr,altpos,neupos):
+        """Verschieben des Items von altpos in Beutel altNr nach neupos in Beutel neuNr für stapelbare Items""" 
         vs = True
         item = self.inhalt[altNr-1].getItem(altpos)
         self.inhalt[altNr-1].spalte [altpos[0]][altpos[1]] = 0

@@ -14,6 +14,7 @@ class Rechteck(pygame.sprite.Sprite):
         self.ort = ort
       
     def scroll(self, terrainPos):
+        """ Verschiebt das Rechteck je nach aktueller Mapposition"""
         self.rect.centerx = self.ort[0] - terrainPos   
         
 def create_map(beginn,ende):
@@ -108,7 +109,7 @@ def getPosV(neupos):
         print "Item bereits auf Slot"
 
 def createItemU(pos):
-    """ Erstellt eine Liste mit Positionen der Itemuntergruende anhand der geklickten Position"""
+    """Erstellt eine Liste mit Positionen der Itemuntergruende anhand der geklickten Position"""
     item = Tasche.inhalt[inventarNr-1].spalte[pos[0]][pos[1]]
     i = 0
     i2 = 0
